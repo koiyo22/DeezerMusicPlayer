@@ -14,13 +14,17 @@ h1{
 .search{
   border-radius: 6px;
   height: 20px;
-  padding: 5px;
+  width:200px;
+  padding-top: 5px;
+  padding-left:10px;
+  padding-right:10px
 }
 
 .searchButton{
-  background-color: #fff;
+  background-color: #eebec6;
   border-radius: 6px;
-  height: 33px;
+  font-size: x-large;
+  border:none
 }
 
 #results {
@@ -44,7 +48,18 @@ h1{
   color: #333;
 }
 
-.play-button {
+.queue{
+  background-color: #fff;
+  border-radius: 15px;
+  border: 2px solid;
+  text-align: left;
+  padding:10px;
+  overflow-y: auto;
+  height:120px;
+
+}
+
+.queue-button,.play-button {
   background-color: #fff;
   border: 2px solid #555;
   border-radius: 6px;
@@ -53,7 +68,7 @@ h1{
   font-size: 1rem;
 }
 
-.play-button:hover {
+.queue-button:hover, .play-button:hover {
   background-color: #e9bcec;
   color: #000;
 }
@@ -65,10 +80,11 @@ p {
 audio {
   border-radius: 0px;
   background-color: transparent;
+  width: 400px;
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: #ffffff;
+  background-color: transparent;
   border-radius: 10px;
 }
 

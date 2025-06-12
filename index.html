@@ -11,17 +11,15 @@
 
   <h1>A Very Limited Song Player</h1>
 
-  <h4> Only 30s preview available for each song :DDD</h4>
+  <h4>Preview 30s of any song!</h4>
 
   <input type="text" id="search" class="search" placeholder="Enter a song name...">
 
-  <button id="searchButton" class="searchButton" onclick="searchSongs()">Search</button>
+  <button id="searchButton" class="searchButton" onclick="searchSongs()">🔍</button><p></p>
 
-  <p></p>
-
-  <audio id="player" controls></audio>
-
-  <p></p>
+  <div><audio id="player" controls></audio></div> <br>
+  
+  <div id="queue"></div><br>
 
   <div id="results"></div>
 
