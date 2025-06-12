@@ -15,7 +15,6 @@ function searchSongs() {
 
 var input = document.getElementById("search");
 input.addEventListener("keypress", function(event) {
-  
   if (event.key === "Enter") { //press enter to search
     event.preventDefault();
     document.getElementById("searchButton").click();
@@ -66,25 +65,24 @@ function playPreview(url) {
 }
 
 function addToQueue(previewUrl, title, artist){
-
   queue.push({previewUrl,title,artist});
   showQueue();
-
 }
 
 function showQueue(){
   const div = document.getElementById('queue');
-  if (queue.length === 0) {
-    div.innerHTML = `
-    <div class="queue">
-      <strong>Queue:</strong> <em>Empty</em>
-    </div>
-    `;
-    return;
-  }
+  // if (queue.length === 0) {
+  //   div.innerHTML = `
+  //   <div class="queue">
+  //     <strong>Queue:</strong> <em>Empty</em>
+  //   </div>
+  //   `;
+  //   return;
+  // }
   div.innerHTML = `
     <div class="queue">
       <strong>Queue:</strong>
+      <button class="play-queue" onclick=playFirstSong()>▶</button>
       <ol>
         ${queue.map(song => `<li>${song.title} <em>by</em> ${song.artist}</li>`).join('')}
       </ol>
@@ -93,7 +91,15 @@ function showQueue(){
 }
 
 const player = document.getElementById('player');
+//start playing queue
+function playFirstSong(){
+  if (queue.length>0){
+    const first =queue[0];
+    playPreview(first.previewUrl);
+  }
+}
 
+//continue queue
 player.addEventListener('ended', function() {
   if (queue.length > 0) {
     //play the next song after current one
@@ -102,4 +108,3 @@ player.addEventListener('ended', function() {
     showQueue();
   }
 });
-
