@@ -40,8 +40,10 @@ function displayResults(data) {
         <strong>${track.title}</strong> by <strong>${track.artist.name}</strong>
         </div>
         
-        <button class="queue-button" onclick="addToQueue('${track.preview}', '${track.title.replace(/'/g,"\\'")}', '${track.artist.name.replace(/'/g,"\\'")}')">➕</button>
-        <button class="play-button" onclick="playPreview('${track.preview}')"> ▶ </button>
+        <div class="button-group">
+          <button class="queue-button" onclick="addToQueue('${track.preview}', '${track.title.replace(/'/g,"\\'")}', '${track.artist.name.replace(/'/g,"\\'")}')">➕</button>
+          <button class="play-button" onclick="playPreview('${track.preview}')">▶</button>
+        </div>
     `;
     resultsDiv.appendChild(div);
   });
