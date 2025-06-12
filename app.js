@@ -1,10 +1,13 @@
+
 function searchSongs() {
   const query = document.getElementById('search').value;
+  //deezer endpoint - receives calls
   const url = `https://api.deezer.com/search?q=${encodeURIComponent(query)}&output=jsonp`;
 
-  // Using JSONP for CORS bypass
   const script = document.createElement('script');
+
   script.src = `${url}&callback=displayResults`;
+  
   document.body.appendChild(script);
 }
 
@@ -17,15 +20,28 @@ function displayResults(data) {
     return;
   }
 
-  data.data.forEach(track => {
+    data.data.forEach(track => {
     const div = document.createElement('div');
     div.className = 'song';
+
     div.innerHTML = `
-      <strong>${track.title}</strong> by ${track.artist.name}<br>
-      <button onclick="playPreview('${track.preview}')">▶ Play Preview</button>
+        <div class="song-info">
+        <strong>${track.title}</strong> by <strong>${track.artist.name}</strong>
+        </div>
+        <button class="play-button" onclick="playPreview('${track.preview}')">▶</button>
     `;
     resultsDiv.appendChild(div);
   });
+  
+  returnTop();
+}
+
+function returnTop(){
+    div=document.getElementById('returnTop');
+    div.innerHTML=`
+    <p> Didn't see the song you wanted? Try entering the name of the artist too!</p>
+  <a href="#top">Back to top</a>
+    `
 }
 
 function playPreview(url) {
