@@ -29,6 +29,7 @@ function displayResults(data) {
         <strong>${track.title}</strong> by <strong>${track.artist.name}</strong>
         </div>
         <button class="play-button" onclick="playPreview('${track.preview}')">▶</button>
+        
     `;
     resultsDiv.appendChild(div);
   });
@@ -49,3 +50,12 @@ function playPreview(url) {
   player.src = url;
   player.play();
 }
+
+var input = document.getElementById("search");
+input.addEventListener("keypress", function(event) {
+  
+  if (event.key === "Enter") { //press enter to search
+    event.preventDefault();
+    document.getElementById("searchButton").click();
+  }
+});

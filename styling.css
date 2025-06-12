@@ -11,6 +11,18 @@ h1{
  font-size:xx-large;
 }
 
+.search{
+  border-radius: 6px;
+  height: 20px;
+  padding: 5px;
+}
+
+.searchButton{
+  background-color: #fff;
+  border-radius: 6px;
+  height: 33px;
+}
+
 #results {
   margin-top: auto;
 }
