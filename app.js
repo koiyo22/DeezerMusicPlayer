@@ -1,5 +1,6 @@
 
 let queue = [];
+const player = document.getElementById('player');
 
 function searchSongs() {
   const query = document.getElementById('search').value;
@@ -26,7 +27,7 @@ function displayResults(data) {
   resultsDiv.innerHTML = '';
 
   if (data.data.length === 0) {
-    resultsDiv.innerHTML = 'Whoopsie, no results found. 🫣';
+    resultsDiv.innerHTML = 'Oooops, no results found. 🫣';
     return;
   }
 
@@ -40,7 +41,7 @@ function displayResults(data) {
         </div>
         
         <div class="button-group">
-          <button class="queue-button" onclick="addToQueue('${track.preview}', '${track.title.replace(/'/g,"\\'")}', '${track.artist.name.replace(/'/g,"\\'")}')">➕</button>
+          <button class="add-queue-button" onclick="addToQueue('${track.preview}', '${track.title.replace(/'/g,"\\'")}', '${track.artist.name.replace(/'/g,"\\'")}')">➕</button>
           <button class="play-button" onclick="playPreview('${track.preview}')">▶</button>
         </div>
     `;
@@ -48,18 +49,18 @@ function displayResults(data) {
   });
   
   returnTop();
+  
 }
 
 function returnTop(){
     div=document.getElementById('returnTop');
     div.innerHTML=`
-    <p> Didn't see the song you wanted? Try entering the name of the artist too!</p>
-  <a href="#top">Back to top</a>
+      <p> Didn't see the song you wanted? Try entering the name of the artist too!</p>
+      <a href="#top">Back to top</a>
     `
 }
 
 function playPreview(url) {
-  const player = document.getElementById('player');
   player.src = url;
   player.play();
 }
@@ -69,34 +70,44 @@ function addToQueue(previewUrl, title, artist){
   showQueue();
 }
 
-function showQueue(){
+function showQueue(title,artist){
   const div = document.getElementById('queue');
-  // if (queue.length === 0) {
-  //   div.innerHTML = `
-  //   <div class="queue">
-  //     <strong>Queue:</strong> <em>Empty</em>
-  //   </div>
-  //   `;
-  //   return;
-  // }
   div.innerHTML = `
-    <div class="queue">
-      <strong>Queue:</strong>
-      <button class="play-queue" onclick=playFirstSong()>▶</button>
+  <div class="queue">
+    <strong>Queue:</strong>
       <ol>
         ${queue.map(song => `<li>${song.title} <em>by</em> ${song.artist}</li>`).join('')}
       </ol>
-    </div>
+  </div><br>
+  <div class="queue-group">
+    <button class="clear-queue-button" onclick="clearQueue()">🚮 Clear</button>
+    <button class="play-queue-button" onclick="playFirstSong()">▶ Play</button>
+    <button class="skip-song-button" onclick="skipSong()">⏭  Skip</button>
+  </div>
   `;
 }
 
-const player = document.getElementById('player');
-//start playing queue
-function playFirstSong(){
-  if (queue.length>0){
-    const first =queue[0];
-    playPreview(first.previewUrl);
+//only loads and plays first song
+function playFirstSong() {
+  if (queue.length > 0) {
+    player.src = queue[0].previewUrl;
+    player.play();
   }
+  
+}
+
+function clearQueue(){
+  queue=[];
+  console.log("queue now cleared")
+  showQueue();
+}
+
+function skipSong(){
+  if (queue.length > 0) {
+   const nextSong = queue.shift();
+    playPreview(nextSong.previewUrl);
+  }
+  showQueue();
 }
 
 //continue queue

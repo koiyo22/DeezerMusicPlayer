@@ -18,6 +18,7 @@ body {
 h1{
  color: #4f3f3e;  
  font-size:xx-large;
+ font-weight: 900;
 }
 
 .search{
@@ -63,6 +64,22 @@ h1{
   gap: 10px;
 }
 
+.skip-song-button,.clear-queue-button,.play-queue-button{
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 2px solid #333;
+  background-color: #fff;
+  cursor: pointer;
+  font-size:medium;
+  max-width: fit-content;
+
+}
+
+.queue-group{
+  text-align: center;
+  
+}
+
 .queue{
   background-color: #fff;
   border-radius: 15px;
@@ -74,7 +91,7 @@ h1{
 
 }
 
-.queue-button, .play-button {
+.add-queue-button, .play-button {
   padding: 5px 10px;
   border-radius: 8px;
   border: 2px solid #333;
@@ -84,7 +101,7 @@ h1{
   width: 50px;
 }
 
-.queue-button:hover, .play-button:hover {
+.skip-song-button:hover,.clear-queue-button:hover,.play-queue-button:hover, .add-queue-button:hover, .play-button:hover {
   background-color: #e9bcec;
   color: #000;
 }
@@ -100,7 +117,7 @@ audio {
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: transparent;
+  background-color: white;
   border-radius: 10px;
 }
 
