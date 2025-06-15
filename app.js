@@ -1,6 +1,7 @@
 
 let queue = [];
 const player = document.getElementById('player');
+var input = document.getElementById("search");
 
 function searchSongs() {
   const query = document.getElementById('search').value;
@@ -14,7 +15,6 @@ function searchSongs() {
   document.body.appendChild(script);
 }
 
-var input = document.getElementById("search");
 input.addEventListener("keypress", function(event) {
   if (event.key === "Enter") { //press enter to search
     event.preventDefault();
@@ -27,7 +27,7 @@ function displayResults(data) {
   resultsDiv.innerHTML = '';
 
   if (data.data.length === 0) {
-    resultsDiv.innerHTML = 'Oooops, no results found. 🫣';
+    resultsDiv.innerHTML = 'Oooops, no results found.';
     return;
   }
 
@@ -85,32 +85,41 @@ function showQueue(title,artist){
     <button class="skip-song-button" onclick="skipSong()">⏭  Skip</button>
   </div>
   `;
+  if (queue.length === 0) {
+    div.innerHTML = `
+    <div class="queue">
+      <p style=text-align:center><i>No songs in your queue right now.</i></p>
+    </div>
+    `
+    return;
+  }
 }
-
-//only loads and plays first song
+ //play first song
 function playFirstSong() {
   if (queue.length > 0) {
-    player.src = queue[0].previewUrl;
-    player.play();
+    playPreview(queue[0].previewUrl)
+    queue.shift();
   }
-  
+  showQueue();
 }
 
+//clear queue
 function clearQueue(){
   queue=[];
   console.log("queue now cleared")
   showQueue();
 }
 
+//skips to next song
 function skipSong(){
   if (queue.length > 0) {
-   const nextSong = queue.shift();
+    const nextSong = queue.shift();
     playPreview(nextSong.previewUrl);
   }
   showQueue();
 }
 
-//continue queue
+//continue queue automatically and display current playing song
 player.addEventListener('ended', function() {
   if (queue.length > 0) {
     //play the next song after current one
@@ -118,4 +127,6 @@ player.addEventListener('ended', function() {
     playPreview(nextSong.previewUrl);
     showQueue();
   }
+  
 });
+
