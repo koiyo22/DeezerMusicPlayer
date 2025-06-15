@@ -66,7 +66,6 @@ function playPreview(url,title = '', artist = '') {
   player.play();
   if (title && artist) {
     currentSong = { previewUrl: url, title, artist };
-    
   }
   updateNowPlaying();
   
@@ -108,13 +107,18 @@ function updateNowPlaying() {
     nowPlayingDiv.innerHTML = `<strong>Now Playing:</strong> ${currentSong.title} <i>by</i> ${currentSong.artist}`;
   }
 }
+
  //play first song
 function playFirstSong() {
+  playNextSong
+}
+
+function playNextSong() {
   if (queue.length > 0) {
-    playPreview(queue[0].previewUrl);
-    currentSong = queue[0];
+    const nextSong = queue.shift();
+    playPreview(nextSong.previewUrl, nextSong.title, nextSong.artist);
+    currentSong = nextSong;
     updateNowPlaying();
-    queue.shift();
   }
   showQueue();
 }
@@ -128,24 +132,9 @@ function clearQueue(){
 
 //skips to next song
 function skipSong(){
-  if (queue.length > 0) {
-    const nextSong = queue.shift();
-    playPreview(nextSong.previewUrl);
-    currentSong=nextSong
-    updateNowPlaying();
-  }
-  showQueue();
+  playNextSong();
 }
 
 //continue queue automatically and display current playing song
-player.addEventListener('ended', function() {
-  if (queue.length > 0) {
-    //play the next song after current one
-    const nextSong = queue.shift()
-    playPreview(nextSong.previewUrl,nextSong.title,nextSong.artist);
-    currentSong=nextSong;
-    updateNowPlaying();
-  }
-  showQueue();
-});
+player.addEventListener('ended',playNextSong);
 
