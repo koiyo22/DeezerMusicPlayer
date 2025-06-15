@@ -110,7 +110,13 @@ function updateNowPlaying() {
 
  //play first song
 function playFirstSong() {
-  playNextSong
+  if (!currentSong && queue.length > 0) {
+    const firstSong = queue.shift();
+    playPreview(firstSong.previewUrl, firstSong.title, firstSong.artist);
+    currentSong = firstSong;
+    updateNowPlaying();
+    showQueue();
+  }
 }
 
 function playNextSong() {
@@ -127,6 +133,7 @@ function playNextSong() {
 function clearQueue(){
   queue=[];
   console.log("queue now cleared")
+  currentSong = null;
   showQueue();
 }
 
